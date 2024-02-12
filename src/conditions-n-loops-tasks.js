@@ -517,7 +517,7 @@ function sortByAsc(arr) {
         }
       }
       if (intLeft.length === 0) {
-        intLeftSorted = [...intLeftSorted, pivot, ...intMiddle];g
+        intLeftSorted = [...intLeftSorted, pivot, ...intMiddle];
         tempArr = [...intRight];
       } else if (intRight.length === 0) {
         intRightSorted = [pivot, ...intMiddle, ...intRightSorted];
