@@ -461,52 +461,85 @@ function rotateMatrix(/* matrix */) {
 function sortByAsc(arr) {
   if (arr.length < 2) return arr;
 
-  let leftSorted = [];
-  let rightSorted = [];
-  let tempArr = [...arr];
   const copyArr = arr;
+  const left = [];
+  let leftI = 0;
+  const right = [];
+  let rightI = 0;
+  const middle = [];
+  let middleI = 0;
 
-  while (true) {
-    if (leftSorted.length + rightSorted.length === arr.length) {
-      for (let i = 0; i < leftSorted.length; i += 1) {
-        copyArr[i] = leftSorted[i];
-      }
-      for (let i = 0; i < rightSorted.length; i += 1) {
-        copyArr[i + leftSorted.length] = rightSorted[i];
-      }
-      return arr;
-    }
-
-    const left = [];
-    let leftI = 0;
-    const right = [];
-    let rightI = 0;
-    const middle = [];
-    let middleI = 0;
-    const pivot = tempArr[0];
-
-    for (let i = 1; i < tempArr.length; i += 1) {
-      if (tempArr[i] < pivot) {
-        left[leftI] = tempArr[i];
-        leftI += 1;
-      } else if (tempArr[i] > pivot) {
-        right[rightI] = tempArr[i];
-        rightI += 1;
-      } else {
-        middle[middleI] = tempArr[i];
-        middleI += 1;
-      }
-    }
-    if (left.length === 0) {
-      leftSorted = [...leftSorted, pivot, ...middle];
-      tempArr = [...right];
-    } else if (right.length === 0) {
-      rightSorted = [pivot, ...middle, ...rightSorted];
-      tempArr = [...left];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] < 0) {
+      left[leftI] = arr[i];
+      leftI += 1;
+    } else if (arr[i] > 0) {
+      right[rightI] = arr[i];
+      rightI += 1;
     } else {
-      tempArr = [...left, pivot, ...middle, ...right];
+      middle[middleI] = arr[i];
+      middleI += 1;
     }
   }
+
+  function intSortByAsc(intArr) {
+    if (arr.length < 2) return intArr;
+
+    let intLeftSorted = [];
+    let intRightSorted = [];
+    let tempArr = [...intArr];
+
+    while (true) {
+      if (intLeftSorted.length + intRightSorted.length === intArr.length) {
+        return [...intLeftSorted, ...intRightSorted];
+      }
+
+      const intLeft = [];
+      let intLeftI = 0;
+      const intRight = [];
+      let intRightI = 0;
+      const intMiddle = [];
+      let intMiddleI = 0;
+      const pivot = tempArr[0];
+
+      for (let i = 1; i < tempArr.length; i += 1) {
+        if (tempArr[i] < pivot) {
+          intLeft[intLeftI] = tempArr[i];
+          intLeftI += 1;
+        } else if (tempArr[i] > pivot) {
+          intRight[intRightI] = tempArr[i];
+          intRightI += 1;
+        } else {
+          intMiddle[intMiddleI] = tempArr[i];
+          intMiddleI += 1;
+        }
+      }
+      if (intLeft.length === 0) {
+        intLeftSorted = [...intLeftSorted, pivot, ...intMiddle];
+        tempArr = [...intRight];
+      } else if (intRight.length === 0) {
+        intRightSorted = [pivot, ...intMiddle, ...intRightSorted];
+        tempArr = [...intLeft];
+      } else {
+        tempArr = [...intLeft, pivot, ...intMiddle, ...intRight];
+      }
+    }
+  }
+
+  const leftSorted = intSortByAsc(left);
+  const rightSorted = intSortByAsc(right);
+
+  for (let i = 0; i < leftSorted.length; i += 1) {
+    copyArr[i] = leftSorted[i];
+  }
+  for (let i = 0; i < middle.length; i += 1) {
+    copyArr[i + leftSorted.length] = middle[i];
+  }
+  for (let i = 0; i < rightSorted.length; i += 1) {
+    copyArr[i + leftSorted.length + middle.length] = rightSorted[i];
+  }
+
+  return arr;
 }
 
 /**
