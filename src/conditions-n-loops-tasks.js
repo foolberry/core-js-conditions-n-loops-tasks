@@ -328,11 +328,10 @@ function getBalanceIndex(arr) {
     for (let i = 0; i < balanceIndex; i += 1) {
       leftSum += arr[i];
     }
-    console.log(leftSum);
     for (let i = balanceIndex + 1; i < arr.length; i += 1) {
       rightSum += arr[i];
     }
-    console.log(rightSum);
+
     if (leftSum === rightSum) return balanceIndex;
     balanceIndex += 1;
   }
@@ -361,6 +360,7 @@ function getBalanceIndex(arr) {
  *        ]
  */
 function getSpiralMatrix(size) {
+  const trueValue = true;
   const arr = new Array(size);
   for (let i = 0; i < size; i += 1) {
     arr[i] = [];
@@ -368,7 +368,7 @@ function getSpiralMatrix(size) {
 
   let n = 0;
   let N = 0;
-  while (true) {
+  while (trueValue) {
     if (N === size ** 2 - 1) {
       N += 1;
       arr[n][n] = N;
@@ -408,6 +408,7 @@ function getSpiralMatrix(size) {
 
     n += 1;
   }
+  return trueValue;
 }
 
 /**
@@ -483,13 +484,14 @@ function sortByAsc(arr) {
   }
 
   function intSortByAsc(intArr) {
+    const trueValue = true;
     if (arr.length < 2) return intArr;
 
     let intLeftSorted = [];
     let intRightSorted = [];
     let tempArr = [...intArr];
 
-    while (true) {
+    while (trueValue) {
       if (intLeftSorted.length + intRightSorted.length === intArr.length) {
         return [...intLeftSorted, ...intRightSorted];
       }
@@ -515,7 +517,7 @@ function sortByAsc(arr) {
         }
       }
       if (intLeft.length === 0) {
-        intLeftSorted = [...intLeftSorted, pivot, ...intMiddle];
+        intLeftSorted = [...intLeftSorted, pivot, ...intMiddle];g
         tempArr = [...intRight];
       } else if (intRight.length === 0) {
         intRightSorted = [pivot, ...intMiddle, ...intRightSorted];
@@ -524,6 +526,7 @@ function sortByAsc(arr) {
         tempArr = [...intLeft, pivot, ...intMiddle, ...intRight];
       }
     }
+    return trueValue;
   }
 
   const leftSorted = intSortByAsc(left);
